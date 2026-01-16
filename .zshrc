@@ -54,7 +54,6 @@ zinit wait lucid for \
 zinit wait lucid for \
     OMZP::git \
     OMZP::docker \
-    OMZP::macos \
     OMZP::colored-man-pages
 
 # -----------------------------------------------------------------------------
