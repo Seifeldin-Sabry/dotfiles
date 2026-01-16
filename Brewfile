@@ -54,7 +54,7 @@ brew "htop"                  # Process viewer
 # -----------------------------------------------------------------------------
 # Applications (Casks)
 # -----------------------------------------------------------------------------
-cask "iterm2"
+cask "ghostty"
 cask "raycast"
 cask "visual-studio-code"
 cask "arc"                   # Browser
