@@ -71,11 +71,17 @@ if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
-# pyenv - Python version manager
+# pyenv - Python version manager (lazy loaded)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv &> /dev/null; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+    eval "$(pyenv init --path)"
+    # Defer full init for faster startup
+    pyenv() {
+        unfunction pyenv
+        eval "$(command pyenv init -)"
+        pyenv "$@"
+    }
 fi
 
 # direnv - Directory environments
@@ -83,15 +89,14 @@ if command -v direnv &> /dev/null; then
     eval "$(direnv hook zsh)"
 fi
 
-# thefuck - Command correction
-if command -v thefuck &> /dev/null; then
+# thefuck - Command correction (lazy loaded - it's slow)
+fuck() {
     eval "$(thefuck --alias)"
-fi
+    fuck "$@"
+}
 
-# fzf - Fuzzy finder
-if command -v fzf &> /dev/null; then
-    source <(fzf --zsh) 2>/dev/null || true
-fi
+# fzf - Fuzzy finder (handled by zinit OMZP::fzf or manual setup)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # -----------------------------------------------------------------------------
 # History Settings
