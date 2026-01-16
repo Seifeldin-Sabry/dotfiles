@@ -67,7 +67,9 @@ fi
 
 # zoxide - Smart cd
 if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init zsh)"
+    eval "$(zoxide init zsh --cmd cd)"  # Replaces cd with smart version
+    # Use 'cdi' for interactive (zi conflicts with zinit)
+    alias cdi='__zoxide_zi'
 fi
 
 # pyenv - Python version manager (lazy loaded)
