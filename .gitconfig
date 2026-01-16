@@ -1,0 +1,35 @@
+[user]
+	name = Seifeldin Sabry
+	email = 93074813+Seifeldin-Sabry@users.noreply.github.com
+
+[core]
+	autocrlf = input
+	editor = vim
+
+[init]
+	defaultBranch = main
+
+[credential]
+	helper = store
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	lg = log --oneline --graph --decorate -20
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	visual = !gitk
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true

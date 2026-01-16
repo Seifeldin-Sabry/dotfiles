@@ -1,0 +1,11 @@
+# OS files
+.DS_Store
+*.swp
+*.swo
+
+# Local overrides (not tracked)
+.zshrc.local
+.gitconfig.local
+
+# Backups
+*.backup.*
