@@ -67,22 +67,9 @@ fi
 
 # zoxide - Smart cd
 if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init zsh --cmd cd)"  # Replaces cd with smart version
-    # Use 'cdi' for interactive (zi conflicts with zinit)
+    eval "$(zoxide init zsh --cmd z)"
+    # Use 'zi' alternative since it conflicts with zinit
     alias cdi='__zoxide_zi'
-fi
-
-# pyenv - Python version manager (lazy loaded)
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv &> /dev/null; then
-    eval "$(pyenv init --path)"
-    # Defer full init for faster startup
-    pyenv() {
-        unfunction pyenv
-        eval "$(command pyenv init -)"
-        pyenv "$@"
-    }
 fi
 
 # direnv - Directory environments
@@ -128,7 +115,7 @@ alias zshrc='${EDITOR:-vim} ~/.zshrc && source ~/.zshrc'
 
 # Modern CLI replacements (if installed)
 command -v bat &> /dev/null && alias cat="bat"
-command -v eza &> /dev/null && alias ls="eza" && alias ll="eza -l" && alias la="eza -la" && alias lt="eza --tree"
+command -v eza &> /dev/null && alias ls="eza" && alias ll="eza -l" && alias la="eza -la" && alias tree="eza --tree"
 command -v fd &> /dev/null && alias find="fd"
 
 # Git shortcuts
@@ -197,3 +184,4 @@ esac
 
 # Task Master
 command -v task-master &> /dev/null && alias tm='task-master' && alias taskmaster='task-master'
+export PATH="/usr/local/opt/gcp/bin:$PATH"
