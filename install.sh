@@ -54,7 +54,8 @@ brew bundle --file="$DOTFILES_DIR/Brewfile"
 # 5. Symlinks (existing real files backed up)
 # -----------------------------------------------------------------------------
 echo "[5/7] Linking dotfiles..."
-for file in .zshrc .zprofile .gitconfig; do
+mkdir -p "$HOME/.config/ghostty"
+for file in .zshrc .zprofile .gitconfig .config/starship.toml .config/ghostty/config; do
     target="$HOME/$file"
     if [[ -e "$target" && ! -L "$target" ]]; then
         mv "$target" "$target.backup.$(date +%Y%m%d%H%M%S)"
@@ -79,7 +80,7 @@ pnpm add -g "${PNPM_GLOBALS[@]}"
 # 7. Shell
 # -----------------------------------------------------------------------------
 echo "[7/7] Final setup..."
-"$(brew --prefix)/opt/fzf/install" --key-bindings --completion --no-update-rc --no-bash --no-fish
+tldr --update
 zsh_path="$(command -v zsh)"
 if [[ "$SHELL" != "$zsh_path" ]]; then
     grep -qx "$zsh_path" /etc/shells || echo "$zsh_path" | sudo tee -a /etc/shells

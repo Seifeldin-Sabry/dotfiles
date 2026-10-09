@@ -9,3 +9,6 @@
 
 # Backups
 *.backup.*
+
+# Agent tool state
+.omc/

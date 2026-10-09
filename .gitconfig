@@ -5,6 +5,18 @@
 [core]
 	autocrlf = input
 	editor = vim
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	features = side-by-side line-numbers
+	syntax-theme = Catppuccin Mocha
+
+[merge]
+	conflictStyle = zdiff3
 
 [init]
 	defaultBranch = main

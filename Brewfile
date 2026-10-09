@@ -20,6 +20,12 @@ brew "zoxide"                # Smart cd
 brew "direnv"                # Directory environments
 brew "jq"                    # JSON processor
 brew "wget"
+brew "starship"              # Prompt
+brew "git-delta"             # Git diff pager
+brew "lazygit"               # Git TUI
+brew "btop"                  # Process monitor
+brew "fastfetch"             # System info
+brew "tealdeer"              # tldr pages
 
 # Dev
 brew "fnm"                   # Node version manager
@@ -37,4 +43,5 @@ if OS.mac?
   cask "cmux"
   cask "raycast"
   cask "claude-code"
+  cask "font-jetbrains-mono-nerd-font"   # Icons in prompt + eza; set as terminal font
 end

@@ -91,8 +91,16 @@ fuck() {
     fuck "$@"
 }
 
-# fzf - Fuzzy finder (handled by zinit OMZP::fzf or manual setup)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf - Fuzzy finder (Catppuccin Mocha colors)
+command -v fzf &> /dev/null && source <(fzf --zsh)
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+--color=selected-bg:#45475a,border:#6c7086"
+
+# bat (and delta) theme
+export BAT_THEME="Catppuccin Mocha"
 
 # -----------------------------------------------------------------------------
 # History Settings
@@ -123,7 +131,9 @@ alias zshrc='${EDITOR:-vim} ~/.zshrc && source ~/.zshrc'
 
 # Modern CLI replacements (if installed)
 command -v bat &> /dev/null && alias cat="bat"
-command -v eza &> /dev/null && alias ls="eza" && alias ll="eza -l" && alias la="eza -la" && alias tree="eza --tree"
+command -v eza &> /dev/null && alias ls="eza --icons" && alias ll="eza -l --icons --git" && alias la="eza -la --icons --git" && alias tree="eza --tree --icons"
+alias lg="lazygit"
+alias ff="fastfetch"
 
 # Git shortcuts
 alias g="git"
@@ -152,14 +162,9 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 # -----------------------------------------------------------------------------
-# Prompt
+# Prompt (config: ~/.config/starship.toml, Catppuccin Powerline preset)
 # -----------------------------------------------------------------------------
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b'
-setopt PROMPT_SUBST
-PROMPT='%F{cyan}%~%f %F{yellow}${vcs_info_msg_0_}%f
-%F{green}→%f '
+command -v starship &> /dev/null && eval "$(starship init zsh)"
 
 # -----------------------------------------------------------------------------
 # Additional PATH entries

@@ -37,7 +37,9 @@ Add a global: `pnpm add -g <pkg>`, then add it to `PNPM_GLOBALS` in `install.sh`
 ~/dotfiles/
 ├── .zshrc        # Shell config (zinit, aliases, fnm, pnpm)
 ├── .zprofile     # Homebrew env (macOS + Linux)
-├── .gitconfig    # Git config
+├── .gitconfig    # Git config (delta pager, gh credentials)
+├── .config/starship.toml
+├── .config/ghostty/config  # Terminal font + theme (Ghostty, cmux)
 ├── Brewfile      # Essential packages only (hand-curated)
 └── install.sh    # Bootstrap
 ```
@@ -47,9 +49,13 @@ Add a global: `pnpm add -g <pkg>`, then add it to `PNPM_GLOBALS` in `install.sh`
 - Zinit turbo mode, fast startup
 - Syntax highlighting, autosuggestions, fzf-tab completion
 - zoxide (`z proj`, `cdi` interactive), forgit, you-should-use
-- bat / eza replace cat / ls
+- bat / eza replace cat / ls (eza with icons + git status)
+- starship prompt (Catppuccin Powerline), Catppuccin Mocha across bat, delta, fzf
+- delta git diffs (side-by-side), `lg` lazygit, `btop`, `ff` fastfetch, `tldr <cmd>`
 
 Keys: `Ctrl+R` history, `Ctrl+T` files, `Alt+C` cd, `Tab` fuzzy complete.
+
+Terminal (Ghostty / cmux): `.config/ghostty/config` sets JetBrainsMono Nerd Font + Catppuccin Mocha. Other terminals: set that font manually for icons.
 
 ## Local overrides (not tracked)
 

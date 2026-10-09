@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"fnm --version; fnm env --help | rtk grep -A2 -Ei 'use-on-cd|version-file|resolve|corepack|install'; ls ~/.config | head -40; rtk ls -la ~/.bash_profile ~/.bashrc 2>&1\",\"description\":\"Check...",
-  "error": "Exit code 1\nfnm 1.39.0\n          The root directory of fnm installations\n          \n          [env: FNM_DIR]\n--\n      --use-on-cd\n          Print the script to change Node versions every directory change\n\n--\n          Override the architecture of the installed Node binary. Defaults to arch of fnm binary\n          \n          [env: FNM_ARCH]\n--\n      --version-file-strategy <VERSION_FILE_STRATEGY>\n          A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is...",
-  "timestamp": "2026-10-09T08:46:58.356Z",
-  "retry_count": 1
-}
