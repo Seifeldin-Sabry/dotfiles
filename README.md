@@ -1,8 +1,8 @@
 # Dotfiles
 
-Minimal, fast macOS development environment.
+Minimal, fast dev environment for macOS and Linux.
 
-## Quick Install
+## Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Seifeldin-Sabry/dotfiles/main/install.sh | bash
@@ -10,74 +10,48 @@ curl -fsSL https://raw.githubusercontent.com/Seifeldin-Sabry/dotfiles/main/insta
 
 Or manually:
 ```bash
-git clone git@github.com:Seifeldin-Sabry/dotfiles.git ~/dotfiles
-cd ~/dotfiles && ./install.sh
+git clone https://github.com/Seifeldin-Sabry/dotfiles.git ~/dotfiles
+~/dotfiles/install.sh
 ```
 
-## What's Included
+Then `gh auth login` (git uses `gh` for GitHub credentials).
 
-### Shell (Zinit + Turbo Mode)
-- **Fast startup**: ~100ms vs ~1.8s before
-- **Syntax highlighting**: Real-time command validation
-- **Autosuggestions**: Fish-like history suggestions
-- **Smart completions**: fzf-tab for fuzzy matching
+Safe to re-run. Linux: Debian/Ubuntu prerequisites via apt, then Homebrew.
 
-### Productivity Plugins
-- **zoxide**: Smart `cd` - type `z proj` to jump to `~/projects`
-- **forgit**: Interactive git with fzf previews
-- **you-should-use**: Reminds you of aliases you forgot
+## Node & packages
 
-### Modern CLI Tools
-| Tool | Replaces | Purpose |
-|------|----------|---------|
-| bat | cat | Syntax highlighting |
-| eza | ls | Better file listing |
-| fd | find | Faster file search |
-| ripgrep | grep | Faster text search |
-| fzf | - | Fuzzy finder |
+| Tool | Role |
+|------|------|
+| fnm | Node versions. Default = latest LTS. Auto-switches on `cd` via `.nvmrc` / `.node-version` / `engines.node` |
+| pnpm | Project installs **and** the only global installer |
+| npm | Projects only. `npm -g` is blocked by a shell wrapper |
 
-### Dev Tools
-- **fnm**: Fast Node Manager (replaces nvm)
-- **pyenv**: Python version manager
-- **direnv**: Directory-level environments
-- **Docker**: Container runtime
+Why: npm globals live inside one Node version and vanish when you switch.
+pnpm globals live in `~/.local/share/pnpm`, independent of Node version.
+
+Add a global: `pnpm add -g <pkg>`, then add it to `PNPM_GLOBALS` in `install.sh`.
 
 ## Files
 
 ```
 ~/dotfiles/
-├── .zshrc        # Main shell config
-├── .zprofile     # Login shell config
-├── .gitconfig    # Git configuration
-├── Brewfile      # Homebrew packages
-├── install.sh    # Installation script
-└── README.md
+├── .zshrc        # Shell config (zinit, aliases, fnm, pnpm)
+├── .zprofile     # Homebrew env (macOS + Linux)
+├── .gitconfig    # Git config
+├── Brewfile      # Essential packages only (hand-curated)
+└── install.sh    # Bootstrap
 ```
 
-## Key Bindings
+## Shell
 
-- `Ctrl+R` - Fuzzy history search
-- `Ctrl+T` - Fuzzy file finder
-- `Alt+C` - Fuzzy cd
-- `Tab` - Fuzzy completion
+- Zinit turbo mode, fast startup
+- Syntax highlighting, autosuggestions, fzf-tab completion
+- zoxide (`z proj`, `cdi` interactive), forgit, you-should-use
+- bat / eza replace cat / ls
 
-## Git Aliases
+Keys: `Ctrl+R` history, `Ctrl+T` files, `Alt+C` cd, `Tab` fuzzy complete.
 
-```bash
-gst   # git status
-gco   # git checkout
-gcb   # git checkout -b
-gp    # git push
-gl    # git pull
-gd    # git diff
-gcm   # git commit -m
-glog  # git log --oneline --graph
-```
+## Local overrides (not tracked)
 
-## Customization
-
-Add local customizations in `~/.zshrc.local` (not tracked):
-```bash
-# Custom aliases
-alias myproject="cd ~/work/myproject"
-```
+- `~/.zshrc.local` — machine-specific shell config
+- `~/.gitconfig.local` — machine-specific git config (e.g. work email)

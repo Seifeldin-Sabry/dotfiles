@@ -3,14 +3,9 @@
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# Homebrew (static to avoid eval overhead)
+# Homebrew (set in .zprofile; Linux terminals often skip login shells)
 # -----------------------------------------------------------------------------
-export HOMEBREW_PREFIX="/opt/homebrew"
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-export HOMEBREW_REPOSITORY="/opt/homebrew"
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}"
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+[[ -z $HOMEBREW_PREFIX ]] && source ~/.zprofile
 
 # -----------------------------------------------------------------------------
 # Zinit Plugin Manager
@@ -62,8 +57,21 @@ zinit wait lucid for \
 
 # fnm - Fast Node Manager
 if command -v fnm &> /dev/null; then
-    eval "$(fnm env --use-on-cd)"
+    eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
 fi
+
+# pnpm - the only global package installer (globals survive Node switches)
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export PATH="$PNPM_HOME/bin:$PATH"
+
+# Block npm globals: they live inside one Node version and vanish on switch
+npm() {
+    if [[ " $* " == *" -g "* || " $* " == *" --global "* ]]; then
+        echo "npm global blocked. Use: pnpm add -g <pkg>" >&2
+        return 1
+    fi
+    command npm "$@"
+}
 
 # zoxide - Smart cd
 if command -v zoxide &> /dev/null; then
@@ -116,7 +124,6 @@ alias zshrc='${EDITOR:-vim} ~/.zshrc && source ~/.zshrc'
 # Modern CLI replacements (if installed)
 command -v bat &> /dev/null && alias cat="bat"
 command -v eza &> /dev/null && alias ls="eza" && alias ll="eza -l" && alias la="eza -la" && alias tree="eza --tree"
-command -v fd &> /dev/null && alias find="fd"
 
 # Git shortcuts
 alias g="git"
@@ -158,14 +165,6 @@ PROMPT='%F{cyan}%~%f %F{yellow}${vcs_info_msg_0_}%f
 # Additional PATH entries
 # -----------------------------------------------------------------------------
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/Library/pnpm:$PATH"
-
-# pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
 
 # -----------------------------------------------------------------------------
 # Optional Integrations (loaded if exist)
@@ -184,4 +183,6 @@ esac
 
 # Task Master
 command -v task-master &> /dev/null && alias tm='task-master' && alias taskmaster='task-master'
-export PATH="/usr/local/opt/gcp/bin:$PATH"
+
+# Machine-specific overrides (not tracked)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

@@ -9,8 +9,13 @@
 [init]
 	defaultBranch = main
 
-[credential]
-	helper = store
+# GitHub auth via gh (keychain-backed, no plaintext tokens)
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -26,10 +31,12 @@
 	lg = log --oneline --graph --decorate -20
 	unstage = reset HEAD --
 	last = log -1 HEAD
-	visual = !gitk
 
 [pull]
 	rebase = false
 
 [push]
 	autoSetupRemote = true
+
+[include]
+	path = ~/.gitconfig.local

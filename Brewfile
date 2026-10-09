@@ -1,60 +1,40 @@
 # =============================================================================
-# Brewfile - Essential development tools
+# Brewfile - Essentials only (macOS + Linux)
 # =============================================================================
 # Install with: brew bundle --file=~/dotfiles/Brewfile
+# Curated by hand. Not a mirror of everything installed.
 
-# Taps
-tap "homebrew/bundle"
-tap "oven-sh/bun"
-
-# -----------------------------------------------------------------------------
-# Core CLI Tools
-# -----------------------------------------------------------------------------
+# Core
 brew "git"
 brew "git-lfs"
-brew "gh"                    # GitHub CLI
+brew "gh"                    # GitHub CLI + git credential helper
+brew "gitleaks"              # Secret scanner
 
-# Shell & Terminal
-brew "zsh"
+# Shell
 brew "fzf"                   # Fuzzy finder
 brew "bat"                   # Better cat
 brew "eza"                   # Better ls
 brew "fd"                    # Better find
 brew "ripgrep"               # Better grep
 brew "zoxide"                # Smart cd
-brew "thefuck"               # Command correction
-brew "tree"                  # Directory tree
-
-# -----------------------------------------------------------------------------
-# Development
-# -----------------------------------------------------------------------------
-brew "fnm"                   # Fast Node Manager
-brew "pnpm"                  # Fast npm alternative
-brew "oven-sh/bun/bun"       # Bun runtime
-brew "pyenv"                 # Python version manager
-brew "pyenv-virtualenv"
 brew "direnv"                # Directory environments
+brew "jq"                    # JSON processor
+brew "wget"
 
-# -----------------------------------------------------------------------------
-# Docker
-# -----------------------------------------------------------------------------
+# Dev
+brew "fnm"                   # Node version manager
+brew "pnpm"                  # Package manager + global installs
+brew "bun"
+brew "uv"                    # Python versions + packages
+
+# Containers (colima = Docker Desktop replacement)
+brew "colima"
 brew "docker"
 brew "docker-compose"
-cask "docker"                # Docker Desktop
+brew "docker-buildx"
 
-# -----------------------------------------------------------------------------
-# Utilities
-# -----------------------------------------------------------------------------
-brew "jq"                    # JSON processor
-brew "yq"                    # YAML processor
-brew "curl"
-brew "wget"
-brew "htop"                  # Process viewer
-
-# -----------------------------------------------------------------------------
-# Applications (Casks)
-# -----------------------------------------------------------------------------
-cask "ghostty"
-cask "raycast"
-cask "visual-studio-code"
-cask "arc"                   # Browser
+if OS.mac?
+  cask "cmux"
+  cask "raycast"
+  cask "claude-code"
+end
